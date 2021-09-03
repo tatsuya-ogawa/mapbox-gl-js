@@ -1632,7 +1632,7 @@ class Style extends Evented {
                 if (!sourceCache) continue;
                 layerTiles[styleLayer.source] = sourceCache.getRenderableIds(true)
                     .map((id) => sourceCache.getTileByID(id));
-                    // .sort((a, b) => (b.tileID.overscaledZ - a.tileID.overscaledZ) || (a.tileID.isLessThan(b.tileID) ? -1 : 1));
+                // .sort((a, b) => (b.tileID.overscaledZ - a.tileID.overscaledZ) || (a.tileID.isLessThan(b.tileID) ? -1 : 1));
             }
 
             const layerBucketsChanged = this.crossTileSymbolIndex.addLayer(styleLayer, layerTiles[styleLayer.source], transform.center.lng);

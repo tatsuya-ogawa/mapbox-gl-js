@@ -183,9 +183,15 @@ class SourceCache extends Evented {
             return renderables.sort((a_: Tile, b_: Tile) => {
                 const a = a_.tileID;
                 const b = b_.tileID;
+                if (a.overscaledZ !== b.overscaledZ) return b.overscaledZ - a.overscaledZ;
+                if (a.wrap !== b.wrap) {
+                    const rotatedWrapA = (new Point(a.wrap, 0))._rotate(this.transform.angle);
+                    const rotatedWrapB = (new Point(b.wrap, 0))._rotate(this.transform.angle);
+                    if (rotatedWrapA.y !== rotatedWrapB.y) return rotatedWrapB - rotatedWrapA;
+                }
                 const rotatedA = (new Point(a.canonical.x, a.canonical.y))._rotate(this.transform.angle);
                 const rotatedB = (new Point(b.canonical.x, b.canonical.y))._rotate(this.transform.angle);
-                return b.overscaledZ - a.overscaledZ || rotatedB.y - rotatedA.y || rotatedA.x - rotatedB.x;
+                return rotatedB.y - rotatedA.y || rotatedA.x - rotatedB.x;
             }).map(tile => tile.tileID.key);
         }
         return renderables.map(tile => tile.tileID).sort(compareTileId).map(id => id.key);
