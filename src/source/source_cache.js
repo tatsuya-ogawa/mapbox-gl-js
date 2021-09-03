@@ -185,7 +185,7 @@ class SourceCache extends Evented {
                 const b = b_.tileID;
                 const rotatedA = (new Point(a.canonical.x, a.canonical.y))._rotate(this.transform.angle);
                 const rotatedB = (new Point(b.canonical.x, b.canonical.y))._rotate(this.transform.angle);
-                return a.overscaledZ - b.overscaledZ || rotatedB.y - rotatedA.y || rotatedB.x - rotatedA.x;
+                return b.overscaledZ - a.overscaledZ || rotatedB.y - rotatedA.y || rotatedA.x - rotatedB.x;
             }).map(tile => tile.tileID.key);
         }
         return renderables.map(tile => tile.tileID).sort(compareTileId).map(id => id.key);

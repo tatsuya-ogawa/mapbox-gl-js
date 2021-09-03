@@ -1631,8 +1631,8 @@ class Style extends Evented {
                 const sourceCache = this._getLayerSourceCache(styleLayer);
                 if (!sourceCache) continue;
                 layerTiles[styleLayer.source] = sourceCache.getRenderableIds(true)
-                    .map((id) => sourceCache.getTileByID(id))
-                    .sort((a, b) => (b.tileID.overscaledZ - a.tileID.overscaledZ) || (a.tileID.isLessThan(b.tileID) ? -1 : 1));
+                    .map((id) => sourceCache.getTileByID(id));
+                    // .sort((a, b) => (b.tileID.overscaledZ - a.tileID.overscaledZ) || (a.tileID.isLessThan(b.tileID) ? -1 : 1));
             }
 
             const layerBucketsChanged = this.crossTileSymbolIndex.addLayer(styleLayer, layerTiles[styleLayer.source], transform.center.lng);
